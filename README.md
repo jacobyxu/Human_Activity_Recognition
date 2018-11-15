@@ -1,3 +1,9 @@
+# Human Activity Recognition
+
++ _title: "Human Activity Recognition"_
++ _author: "Puxin Xu"_
++ _date: "January 22, 2016"_
+
     library(lattice)
     library(ggplot2)
     library(caret)
