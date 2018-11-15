@@ -1,8 +1,8 @@
 ---
-title: "Practical Machine Learning Final Project"
+title: "Human Activity Recognition"
 author: "Puxin Xu"
 date: "January 22, 2016"
-output: html_document
+output: md_document
 ---
 
 
@@ -16,10 +16,11 @@ library(RColorBrewer)
 library(rattle)
 library(randomForest)
 library(knitr)
+library(e1071)
 ```
 
 ##Background
-Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement ¨C a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. More information is available from the website here: http://groupware.les.inf.puc-rio.br/har  (see the section on the Weight Lifting Exercise Dataset).
+Using devices such as Jawbone Up, Nike FuelBand, and Fitbit it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement ?C a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. In this project, your goal will be to use data from accelerometers on the belt, forearm, arm, and dumbell of 6 participants. They were asked to perform barbell lifts correctly and incorrectly in 5 different ways. More information is available from the website here: http://groupware.les.inf.puc-rio.br/har  (see the section on the Weight Lifting Exercise Dataset).
 
 ##Data
 The training data for this project are available here: https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
@@ -32,9 +33,9 @@ The data for this project come from this source: http://groupware.les.inf.puc-ri
 ##Getting and Cleaning the data
 ###Getting the data
 ```{r}
-if (!dir.exists("Final_Project")) { 
-dir.create("./Final_Project")}
-setwd("./Final_Project")
+if (!dir.exists("data")) { 
+dir.create("./data")}
+setwd("./data")
 fileUrl_training <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv"
 download.file(fileUrl_training, destfile = "./pml-training.csv")
 fileUrl_testing <- "https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv"
@@ -121,7 +122,7 @@ gbmAccuracyTest
 plot(gbmFit1, ylim=c(0.9, 1))
 ```
 
-##Course Project Prediction Results
+##Prediction Results
 `Random Forest` gives an Accuracy in the myTesting dataset of `99.89%`, which was more accurate that what I got from the Decision Trees and GBM. The expected `out-of-sample error` is 100%-99.89% = `0.11%`. Thus I choose `Random Forest` to be the final predictor.
 ```{r}
 predictionB2 <- predict(modFitB1, testing, type = "class")
@@ -137,6 +138,6 @@ pml_write_files = function(x){
         write.table(x[i],file=filename,quote=FALSE,row.names=FALSE,col.names=FALSE)
     }
 }
-pml_write_files(predictionB2)
+#pml_write_files(predictionB2)
 ```
 
